@@ -2,7 +2,7 @@
   "name": "supermemory",
   "private": true,
   "scripts": {
-    "build": "find apps/web/app -type f \\( -name \"page.tsx\" -o -name \"route.ts\" \\) -exec sh -c 'echo \"\nexport const runtime = \\\"edge\\\";\" >> \"$1\"' _ {} \\; && turbo run build && rm -rf .next && cp -r apps/web/.next .next && rm -rf public && cp -r apps/web/public public",
+    "build": "find apps/web/app -type f \\( -name \"page.tsx\" -o -name \"route.ts\" -o -name \"route.tsx\" \\) -exec sh -c 'echo \"\nexport const runtime = \\\"edge\\\";\" >> \"$1\"' _ {} \\; && turbo run build && rm -rf .next && cp -r apps/web/.next .next && rm -rf public && cp -r apps/web/public public",
     "format-lint": "bunx biome check --write",
     "check-types": "turbo run check-types",
     "sentry:sourcemaps": "_SENTRY_RELEASE=$(sentry-cli releases propose-version) && sentry-cli releases new $_SENTRY_RELEASE --org=supermemory --project=consumer-app && sentry-cli sourcemaps upload --org=supermemory --project=consumer-app --release=$_SENTRY_RELEASE --strip-prefix 'dist/..' dist",
